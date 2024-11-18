@@ -1,0 +1,81 @@
+﻿@model ProductVM
+
+@{
+    ViewData["Title"] = "Product Details";
+}
+
+<div class="container mt-5">
+    <div class="card shadow-lg" style="max-width: 800px; margin: auto; border-radius: 15px;">
+        <div class="card-header d-flex justify-content-between align-items-center" style="background-color: #6c757d; color: white;">
+            <h3 class="mb-0">Product Details</h3>
+            <!-- Edit Icon Link -->
+            @if (User.IsInRole("Admin"))
+            {
+                <a href="@Url.Action("Edit", "Product", new { id = Model.Id })" class="text-white" title="Edit Product" style="font-size: 1.5rem;">
+                    <i class="bi bi-pencil-square"></i>
+                </a>
+            }
+        </div>
+
+        <div class="card-body p-5" style="background-color: #f8f9fa; border-radius: 0 0 15px 15px;">
+            <div class="row">
+                <!-- Product Image -->
+                <div class="col-md-5 text-center">
+                    <img src="@Model.ImagePath" class="img-fluid rounded" alt="@Model.Name" style="max-height: 300px; object-fit: cover;">
+                </div>
+
+                <!-- Product Details -->
+                <div class="col-md-7">
+                    <h4 class="text-secondary"><strong>Name:</strong> @Model.Name</h4>
+                    <h5 class="text-success"><strong>Price:</strong> $@Model.UnitPrice</h5>
+                    <p class="text-muted"><strong>Description:</strong> @Model.Description</p>
+
+                    <ul class="list-unstyled mt-4">
+                        <li><strong>Category:</strong> @Model.Category?.Name</li>
+                        <li><strong>Brand:</strong> @Model.Brand?.Name</li>
+                    </ul>
+
+                    <!-- Quantity Selector and Add to Cart Button -->
+                    <div class="d-flex align-items-center mt-4">
+                        <form asp-action="addtocard" asp-controller="card" asp-route-id="@Model.Id">
+
+                            <div class="input-group" style="width: 150px;">
+                                <button type="button" class="btn btn-outline-secondary" onclick="decreaseQuantity()">-</button>
+                                <input type="number" id="quantity" asp-for="Quantity" class="form-control text-center" value="1" min="1" readonly>
+                                <button type="button" class="btn btn-outline-secondary" onclick="increaseQuantity()">+</button>
+                            </div>
+                            <div class="text-center mt-4 d-flex justify-content-between align-items-center">
+                                <a asp-action="ShowAll" asp-controller="Product" style="height:25px" class="btn btn-outline-primary h-50">
+                                    <i class="bi bi-arrow-left-circle"></i> Back to List
+                                </a>
+                                <input type="submit" class="btn btn-primary ms-3 btn-lg w-50 hvr-sweep-to-right" value=" Add to Cart" />
+                                   
+                                
+                            </div>
+                            <!-- Add to Cart Button with JavaScript to handle quantity -->
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Back to List Link -->
+
+</div>
+
+<script>
+    function increaseQuantity() {
+        const quantityInput = document.getElementById("quantity");
+        let currentQuantity = parseInt(quantityInput.value);
+        quantityInput.value = currentQuantity + 1;
+    }
+
+    function decreaseQuantity() {
+        const quantityInput = document.getElementById("quantity");
+        let currentQuantity = parseInt(quantityInput.value);
+        if (currentQuantity > 1) {
+            quantityInput.value = currentQuantity - 1;
+        }
+    }
+</script>

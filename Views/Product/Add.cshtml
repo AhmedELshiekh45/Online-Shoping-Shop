@@ -1,0 +1,28 @@
+﻿@model ServiceLayer.ViewModels.ProductVM
+
+@{
+    ViewData["Title"] = "Add";
+}
+<hr />
+<div class="container">
+    <form class="d-flex flex-column align-items-center" asp-action="Add" asp-controller="Product"  enctype="multipart/form-data">
+        <partial name="_AddAndEdit" />
+        <div class="form-group">
+            <input type="submit" value="Create" class="btn btn-primary" />
+        </div>
+
+    </form>
+
+   
+</div>
+
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

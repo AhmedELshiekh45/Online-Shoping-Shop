@@ -1,0 +1,46 @@
+﻿@using BussinessLayer.ViewModels
+@using System.Security.Claims
+@model CheckOutVM
+
+<h2>Checkout</h2>
+<table>
+    <tr>
+        <th>Product</th>
+        <th>Quantity</th>
+        <th>Price</th>
+        <th>Total</th>
+    </tr>
+    @foreach (var item in Model.CartItems)
+    {
+        <tr>
+            <td>@item.ProductName</td>
+            <td>@item.Quantity</td>
+            <td>@item.Price.ToString("C")</td>
+            <td>@item.TotalPrice.ToString("C")</td>
+        </tr>
+    }
+</table>
+<p><strong>Total: @Model.TotalAmount.ToString("C")</strong></p>
+
+<form action="/card/ProcessPayment" method="post" id="payment-form">
+    <input type="hidden" name="userId" value="@User.FindFirstValue(ClaimTypes.NameIdentifier)" />
+    <input type="hidden" id="stripeToken" name="stripeToken" />
+    <input type="submit" value="Buy Now" class="btn btn-primary" />
+</form>
+
+<script src="https://js.stripe.com/v3/"></script>
+<script>
+    var stripe = Stripe('@Model.StripePublishableKey');
+    var checkoutButton = document.getElementById('checkout-button');
+
+    checkoutButton.addEventListener('click', async function () {
+        const { token, error } = await stripe.createToken();
+
+        if (error) {
+            alert(error.message);
+        } else {
+            document.getElementById('stripeToken').value = token.id;
+            document.getElementById('payment-form').submit();
+        }
+    });
+</script>

@@ -1,0 +1,20 @@
+﻿@model IEnumerable<Order>
+
+<div class="container">
+    <h2>Your Orders</h2>
+    <div class="row">
+        @foreach (var order in Model)
+        {
+            <div class="col-md-4 col-sm-6 mb-3">
+                <div class="card h-100">
+                    <div class="card-body">
+
+                        <p>Order Date: @order.OrderDate.ToShortDateString()</p>
+                        <p>Total Amount: $@order.TotalAmount</p>
+                        <a href="@Url.Action("OrderDeatils", "order", new { id = order.Id })" class="btn btn-primary">View Details</a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

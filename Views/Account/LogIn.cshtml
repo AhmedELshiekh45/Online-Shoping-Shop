@@ -1,0 +1,50 @@
+﻿@model LoginVM
+
+@{
+    ViewData["Title"] = "LogIn";
+}
+
+<h1 style="position:relative;left:45%">LogIn</h1>
+
+
+<hr />
+
+<div class="row" style="display:flex;justify-content:center;align-items:center">
+    <div class="col-md-4 border-1">
+        <form asp-action="LogIn">
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="UserName" class="control-label"></label>
+                <input asp-for="UserName" class="form-control" />
+                <span asp-validation-for="UserName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Password" class="control-label"></label>
+                <input asp-for="Password" class="form-control" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="RememberMe" /> @Html.DisplayNameFor(model => model.RememberMe)
+                </label>
+            </div>
+            <div class="form-group d-flex align-items-center justify-content-between">
+                <input type="submit" value="Log In" class="btn btn-primary" />
+                <div class="p-3 d-flex align-items-center justify-content-a">
+                    <a>Donnot You Have An Account </a>
+                    <a class="btn btn-outline-primary " style="  border-radius:2px ;" asp-action="Register" asp-controller="Account">Register</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index" asp-controller="Home">Back to List</a>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

@@ -1,0 +1,282 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Presentaion</title>
+    <title>Stylish - Shoes Online Store</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="author" content="TemplatesJungle">
+    <meta name="keywords" content="Online Store">
+    <meta name="description" content="Stylish - Shoes Online Store HTML Template">
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+
+    <link rel="stylesheet" type="text/css" href="~/css/vendor.css">
+    <link rel="stylesheet" href="~/css/style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,900;1,900&family=Source+Sans+Pro:wght@400;600;700;900&display=swap"
+          rel="stylesheet">
+</head>
+<body>
+    <partial name="_SymbolsSectionPatialView" />
+    <header id="header" class="site-header text-black">
+
+        <nav id="header-nav" class="navbar navbar-expand-lg">
+            <div class="container-lg">
+                <a class="navbar-brand" asp-action="Index" asp-controller="Home">
+                    <img src="images/main-logo.png" class="logo" alt="logo">
+                </a>
+                <button class="navbar-toggler d-flex d-lg-none order-3 border-0 p-1 ms-2" type="button" data-bs-toggle="offcanvas"
+                        data-bs-target="#bdNavbar" aria-controls="bdNavbar" aria-expanded="false" aria-label="Toggle navigation">
+                    <svg class="navbar-icon">
+                        <use xlink:href="#navbar-icon"></use>
+                    </svg>
+                </button>
+                <div class="offcanvas offcanvas-end" tabindex="-1" id="bdNavbar">
+                    <div class="offcanvas-header px-4 pb-0">
+                        <a class="navbar-brand ps-3" href="index.html">
+                            <img src="images/main-logo.png" class="logo" alt="logo">
+                        </a>
+                        <button type="button" class="btn-close btn-close-black p-5" data-bs-dismiss="offcanvas" aria-label="Close"
+                                data-bs-target="#bdNavbar"></button>
+                    </div>
+                    <div class="offcanvas-body">
+                        <ul id="navbar" class="navbar-nav fw-bold justify-content-end align-items-center flex-grow-1">
+                            <li class="nav-item ">
+                                <a class="nav-link me-5" asp-action="Index" asp-controller="Home">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link me-5" href="#">Men</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link me-5" href="#">Women</a>
+                            </li>
+                            @*                             <li class="nav-item dropdown">
+                            <a class="nav-link me-5 active dropdown-toggle border-0" href="#" data-bs-toggle="dropdown"
+                            aria-expanded="false">Page</a>
+                            <ul class="dropdown-menu fw-bold">
+                            <li>
+                            <a href="index.html" class="dropdown-item">About Us </a>
+                            </li>
+                            <li>
+                            <a class="dropdown-item" href="index.html">Shop </a>
+                            </li>
+                            <li>
+                            <a class="dropdown-item" href="index.html">Blog </a>
+                            </li>
+                            <li>
+                            <a class="dropdown-item" href="index.html">Single Product </a>
+                            </li>
+                            <li>
+                            <a class="dropdown-item" href="index.html">Single Post </a>
+                            </li>
+                            <li>
+                            <a class="dropdown-item" href="index.html">Styles </a>
+                            </li>
+                            <li>
+                            <a href="#" data-bs-toggle="modal" data-bs-target="#modallong" class="dropdown-item">cart</a>
+                            </li>
+                            <li>
+                            <a href="#" data-bs-toggle="modal" data-bs-target="#modallogin" class="dropdown-item">Login</a>
+                            </li>
+                            </ul>
+                            </li>
+                            *@
+                            <li class="nav-item">
+                                <a class="nav-link me-5" asp-action="ShowAll" asp-controller="Product">Shop</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link me-5" href="#">Sale</a>
+                            </li>
+                            @if (User.Identity.IsAuthenticated)
+                            {
+
+                                <li class="nav-item">
+                                    <a class="nav-link me-5" asp-action="logout" asp-controller="Account">Log Out</a>
+                                </li>
+                                <li class="nav-item d-flex justify-content-between align-items-center">
+                                    <a class="nav-link me-5" asp-action="Profile" asp-controller="Card">Welcome  <span>@User.Identity.Name</span> </a>
+                                </li>
+
+                            }
+                            else
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link me-5" asp-action="LogIn" asp-controller="Account">Log In</a>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                </div>
+                @*                 <div class="user-items ps-0 ps-md-5">
+                <ul class="d-flex justify-content-end list-unstyled align-item-center m-0">
+                <li class="pe-3">
+                <a asp-action="LogIn" asp-controller="Account" data-bs-toggle="modal" data-bs-target="#modallogin" class="border-0">
+                <svg class="user" width="24" height="24">
+                <use xlink:href="#user"></use>
+                </svg>
+                </a>
+                </li>
+                <li class="pe-3">
+                <a asp-action="ShopingCart" asp-controller="User" data-bs-toggle="modal" data-bs-target="#modallong" class="border-0">
+                <svg class="shopping-cart" width="24" height="24">
+                <use xlink:href="#shopping-cart"></use>
+                </svg>
+                </a>
+                </li>
+                <li>
+                <a asp-action="search" asp-controller="Product" class="search-item border-0" data-bs-toggle="collapse" data-bs-target="#search-box" aria-label="Toggle navigation">
+                <svg class="search" width="24" height="24">
+                <use xlink:href="#search"></use>
+                </svg>
+                </a>
+                </li>
+                </ul>
+                </div>
+                *@
+            </div>
+        </nav>
+    </header>
+
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer id="footer" class="py-5 border-top">
+        <div class="container-lg">
+            <div class="row">
+                <div class="col-lg-2 pb-3">
+                    <div class="footer-menu">
+                        <h5 class="widget-title pb-2">Info</h5>
+                        <ul class="menu-list list-unstyled">
+                            <li class="pb-2">
+                                <a href="#">Track Your Order</a>
+                            </li>
+                            <li class="pb-2">
+                                <a href="index.html">Our Blog</a>
+                            </li>
+                            <li class="pb-2">
+                                <a href="#">Privacy policy</a>
+                            </li>
+                            <li class="pb-2">
+                                <a href="#">Shipping</a>
+                            </li>
+                            <li class="pb-2">
+                                <a href="#">Contact Us</a>
+                            </li>
+                            <li class="pb-2">
+                                <a href="#">Help</a>
+                            </li>
+                            <li class="pb-2">
+                                <a href="#">Community</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-2 pb-3">
+                    <div class="footer-menu">
+                        <h5 class="widget-title pb-2">About</h5>
+                        <ul class="menu-list list-unstyled">
+                            <li class="pb-2">
+                                <a href="#">History</a>
+                            </li>
+                            <li class="pb-2">
+                                <a href="#">Our Team</a>
+                            </li>
+                            <li class="pb-2">
+                                <a href="#">Services</a>
+                            </li>
+                            <li class="pb-2">
+                                <a href="#">Company</a>
+                            </li>
+                            <li class="pb-2">
+                                <a href="#">Manufacture</a>
+                            </li>
+                            <li class="pb-2">
+                                <a href="#">Wholesale</a>
+                            </li>
+                            <li class="pb-2">
+                                <a href="#">Retail</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-2 pb-3">
+                    <div class="footer-menu">
+                        <h5 class="widget-title pb-2">Women Shoes</h5>
+                        <ul class="menu-list list-unstyled">
+
+                            <li class="pb-2">
+                                <a href="index.html">Our Blog</a>
+                            </li>
+
+                            <li class="pb-2">
+                                <a href="#">Shipping</a>
+                            </li>
+
+                            <li class="pb-2">
+                                <a href="#">Help</a>
+                            </li>
+
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-2 pb-3">
+                    <div class="footer-menu">
+                        <h5 class="widget-title pb-2">Popular</h5>
+                        <ul class="menu-list list-unstyled">
+                            <li class="pb-2">
+                                <a href="#">Prices Drop</a>
+                            </li>
+                            <li class="pb-2">
+                                <a href="#">New Products</a>
+                            </li>
+                            <li class="pb-2">
+                                <a href="#">Best Sales</a>
+                            </li>
+                            <li class="pb-2">
+                                <a href="index.html">Stores</a>
+                            </li>
+                            <li class="pb-2">
+                                <a asp-action="LogIn" asp-controller="Account" data-bs-toggle="modal" data-bs-target="#modallogin">Login</a>
+                            </li>
+                            <li class="pb-2">
+                                <a asp-action="ShopingCart" asp-controller="User" data-bs-toggle="modal" data-bs-target="#modallong">Cart</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col-lg-2 pb-3">
+                    <div class="footer-menu">
+                        <h5 class="widget-title pb-3">Get In Touch</h5>
+                        <div class="footer-contact-text">
+
+                            <span> Call us: (+02) 010 6303 8833 </span>
+                            <span class="text-hover fw-bold light-border">
+                                <a href="ahm75295@gmail.com">Contact </a>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="js/jquery-1.11.0.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/plugins.js"></script>
+    <script src="js/script.js"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

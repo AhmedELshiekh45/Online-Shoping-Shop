@@ -1,0 +1,59 @@
+﻿@model ServiceLayer.ViewModels.ProductVM
+@{
+    var selectedCategories = new SelectList(Model.Categories, "Id", "Name");
+    var selectedBrands = new SelectList(Model.Brands, "Id", "Name");
+}
+<div class="form-row" style="width: 100%;">
+    <div class="form-group col-md-6">
+        <label asp-for="Name" class="control-label"></label>
+        <input asp-for="Name" class="form-control" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+    <div class="form-group col-md-6">
+        <label asp-for="Description" class="control-label"></label>
+        <input asp-for="Description" class="form-control" />
+        <span asp-validation-for="Description" class="text-danger"></span>
+    </div>
+    <div class="form-group col-md-6">
+        <label asp-for="UnitPrice" class="control-label"></label>
+        <input asp-for="UnitPrice" class="form-control" />
+        <span asp-validation-for="UnitPrice" class="text-danger"></span>
+    </div>
+    <div class="form-group col-md-6">
+        <label asp-for="CategoryId" class="control-label"></label>
+        <select asp-for="CategoryId" asp-items="selectedCategories" class="form-control">
+            <option value="">Please select</option>
+        </select>
+        <span asp-validation-for="CategoryId" class="text-danger"></span>
+    </div>
+    <div class="form-group col-md-6">
+        <label asp-for="BrandId" class="control-label"></label>
+        <select asp-for="BrandId" asp-items="selectedBrands" class="form-control">
+            <option value="">Please select</option>
+        </select>
+        <span asp-validation-for="BrandId" class="text-danger"></span>
+    </div>
+    <div class="mb-3 col-md-12">
+        <label asp-for="File" class="form-label">Choose The Product Photo Please</label>
+        <input class="form-control" type="file" asp-for="File" onchange="previewImage(event)">
+        <img id="preview"  style="display:none; max-width:300px; height:auto;" />
+    </div>
+</div>
+
+<script>
+    function previewImage(event) {
+        var file = event.target.files[0];
+        if (file) {
+            var reader = new FileReader();
+            reader.onload =   function(e) {
+                var img = document.getElementById('preview');
+                img.src = e.target.result;
+                img.style.display = 'block';
+            };
+
+            reader.readAsDataURL(file);
+        }
+
+    }
+</script>
+

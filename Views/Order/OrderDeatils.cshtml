@@ -1,0 +1,72 @@
+﻿@model Order
+
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-12">
+            <h2 class="text-center">Order Details</h2>
+        </div>
+    </div>
+
+    <!-- Order Summary -->
+    <div class="row mt-4">
+        <div class="col-md-6 mb-3">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Order Information</h5>
+                    <p><strong>Order Date:</strong> @Model.OrderDate.ToString("MMMM dd, yyyy")</p>
+                    <p><strong>Order State:</strong> @Model.State</p>
+                    <p><strong>Total Amount:</strong> $@Model.TotalAmount</p>
+                    <p><strong>Shipping Address:</strong> @Model.ShippingAddress</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 mb-3">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Customer Information</h5>
+                
+                    <p><strong>Name:</strong> @Model.User.UserName</p>
+                    <p><strong>Email:</strong> @Model.User.Email</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Order Items -->
+    <div class="row mt-4">
+        <div class="col-12">
+            <h5>Order Items</h5>
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Product Name</th>
+                            <th>Quantity</th>
+                            <th>Price</th>
+                            <th>Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.Items)
+                        {
+                            <tr>
+                                <td>@item.Product.Name</td>
+                                <td>@item.Quantity</td>
+                                <td>$@item.Product.UnitPrice</td>
+                                <td>$@(item.Quantity * item.Product.UnitPrice)</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Back Button -->
+    <div class="row mt-4">
+        <div class="col-12 text-center">
+            <a href="@Url.Action("ShowOrders", "Order")" class="btn btn-secondary">Back to Orders</a>
+        </div>
+    </div>
+</div>

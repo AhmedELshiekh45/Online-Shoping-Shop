@@ -1,0 +1,105 @@
+﻿@using BussinessLayer.ViewModels
+@model UserShoppingCardVM // Replace with your actual view model name
+
+@{
+    ViewData["Title"] = "Shopping Cart";
+}
+
+<div class="container mt-5">
+    <!-- User Information Section -->
+    <div class="card p-4 mb-4">
+        <h2 class="text-primary">User Information</h2>
+        <div class="d-flex align-items-center">
+            <img src="@Model.User.ImagePath" alt="User Image" class="rounded-circle me-3" style="width: 80px; height: 80px;">
+            <div>
+                <p><strong>Name:</strong> @Model.User.UserName</p>
+                <p><strong>Email:</strong> @Model.User.Email</p>
+                <p><strong>Address:</strong> @Model.User.City</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Shopping Cart Section -->
+    <div class="row">
+        <!-- Cart Items List -->
+        <div class="col-md-8">
+            <h3 class="mb-4">Shopping Cart</h3>
+            <ul class="list-group">
+                @foreach (var item in Model.Items)
+                {
+                    <li class="list-group-item d-flex justify-content-between align-items-center mb-2">
+                        <!-- Product Info -->
+                        <div class="d-flex align-items-center">
+                            <img src="@item.Product.ImagePath" alt="@item.Product.Name" style="width: 100px; height: auto; margin-right: 15px;">
+                            <div>
+                                <h5>@item.Product.Name</h5>
+                                <p class="text-muted">$@item.Product.UnitPrice</p>
+                            </div>
+                        </div>
+
+                        <!-- Quantity Controls -->
+                        <div class="d-flex align-items-center">
+                            <button class="btn btn-outline-secondary btn-sm me-2" onclick="decreaseQuantity(@item.Id)">-</button>
+                            <input type="text" class="form-control text-center" id="quantity-@item.Id" value="@item.Quantity" style="width: 60px;" readonly>
+                            <button class="btn btn-outline-secondary btn-sm ms-2" onclick="increaseQuantity(@item.Id)">+</button>
+                        </div>
+
+                        <!-- Remove from Cart Button -->
+                        <a class="btn btn-danger ms-3" asp-action="Remove" asp-controller="Card" asp-route-id="@item.ProductId">
+                            Remove
+                        </a>
+                    </li>
+
+                    <script>
+                        function increaseQuantity(itemId) {
+                            const quantityInput = document.getElementById("quantity-" + itemId);
+                            let currentQuantity = parseInt(quantityInput.value);
+                            quantityInput.value = currentQuantity + 1;
+                        }
+
+                        function decreaseQuantity(itemId) {
+                            const quantityInput = document.getElementById("quantity-" + itemId);
+
+                            let currentQuantity = parseInt(quantityInput.value);
+                            if (currentQuantity > 1) {
+                                quantityInput.value = currentQuantity - 1;
+                            }
+                        }
+                    </script>
+                }
+            </ul>
+        </div>
+
+        <!-- Checkout Summary -->
+        <div class="col-md-4">
+            <div class="card p-4">
+                <h4>Order Summary</h4>
+                <hr>
+                <p><strong><a asp-action="TotalAmount" asp-controller="Card">Total Amount:</a></strong> $<span>@Model.TotalAmount</span></p>
+                <a class="btn btn-primary w-100" asp-action="Checkout" asp-controller="Checkout">Checkout</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script>
+ function updateTotalAmount() {
+        let totalAmount = 0;
+
+        // Loop through all quantity inputs and calculate total
+        @foreach (var item in Model.Items)
+        {
+            <text>
+                const unitPrice = @item.Product.UnitPrice;
+                const quantity = parseInt(document.getElementById("quantity-" + @item.Id).value);
+                totalAmount += unitPrice * quantity;
+            </text>
+        }
+
+        // Update the total amount in the UI
+        document.getElementById("totalAmount").innerText = totalAmount.toFixed(2);
+    }
+</script>
+ 

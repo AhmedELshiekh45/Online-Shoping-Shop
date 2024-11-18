@@ -1,0 +1,65 @@
+﻿@using BussinessLayer.ViewModels
+@model CheckOutVM
+
+@{
+    ViewData["Title"] = "Checkout";
+}
+
+<h1>Checkout</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+         
+            <th>
+                ProductName
+            </th>
+            <th>
+               Unit Price
+            </th>
+            <th>
+                Quantity
+            </th>
+            <th>
+                TotalPrice
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.CartItems) {
+        <tr>
+          
+            <td>
+                @Html.DisplayFor(modelItem => item.ProductName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Quantity)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TotalPrice)
+            </td>
+           
+        </tr>
+}
+        <tr >
+
+            <td class ="col-6">
+                @Html.DisplayFor(model => model.TotalAmount)
+            </td>
+            <td class="col-6">
+                <a class="btn btn-outline-primary" asp-action="CreateCheckoutSession">Check Out </a>
+               
+            </td>
+           
+        </tr>
+    </tbody>
+
+    
+</table>
